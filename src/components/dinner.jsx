@@ -1,7 +1,9 @@
 import React from "react";
 import * as PropTypes from "react/lib/ReactPropTypes";
+import {CircularProgress} from "material-ui";
 import {query} from "../actions/dinner";
 import {connect} from "react-redux";
+import {DinnerParticipation} from "./dinnerParticipation";
 
 export class Dinner extends React.Component {
   componentDidMount() {
@@ -12,8 +14,10 @@ export class Dinner extends React.Component {
     return (
       <div>
         {this.props.isFetching ?
-          <h1>Fetching</h1> :
-          <p>fetched</p>
+          <CircularProgress /> :
+          this.props.participations.map((participation, index) =>
+            <DinnerParticipation key={index} participation={participation}/>
+          )
         }
       </div>
     )
@@ -22,7 +26,8 @@ export class Dinner extends React.Component {
 
 Dinner.propTypes = {
   isFetching: PropTypes.bool,
-  dinnerlist: PropTypes.array(
+  dinnerlist: PropTypes.object,
+  participations: PropTypes.arrayOf(
     PropTypes.object
   ),
   query: PropTypes.func
