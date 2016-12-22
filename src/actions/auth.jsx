@@ -9,7 +9,7 @@ export function login(credentials){
     dispatch({type: LOGIN_PENDING, username: credentials.username});
 
     return request
-      .post('http://localhost:8000/api/auth/token/')
+      .post(API_URL + `/api/auth/token/`)
       .set('Content-Type', 'application/json')
       .send(credentials)
       .then(result => {

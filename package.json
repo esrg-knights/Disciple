@@ -9,7 +9,7 @@
     "eslint": "eslint --max-warnings 0 --ext .js,.jsx app/. ",
     "esfix": "eslint --ext .js,.jsx --fix app/. ",
     "karma": "karma start --single-run",
-    "build": "webpack -p"
+    "build": "NODE_ENV=production webpack -p"
   },
   "author": "David Diks <d.diks94@gmail.com>",
   "license": "MIT",

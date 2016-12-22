@@ -8,7 +8,7 @@ export function query() {
     dispatch({type: DINNER_LOADING});
 
     return request
-      .get('http://localhost:8000/api/dinner/')
+      .get(`${API_URL}/api/dinner/`)
       .set('Authorization', `JWT ${localStorage.getItem('token')}`)
       .then(result => {
         dispatch({
