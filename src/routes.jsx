@@ -4,9 +4,7 @@ import Overview from './components/overview';
 import Dinner from './components/dinner';
 
 export default(
-  <Route path='/'>
-    <IndexRoute component={Overview}>
-      <Route path="dinner" components={Dinner} />
-    </IndexRoute>
+  <Route path='/' component={Overview}>
+    <Route path="dinner" component={Dinner} />
   </Route>
 )
