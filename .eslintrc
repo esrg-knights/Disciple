@@ -1,0 +1,18 @@
+root: true
+
+extends: airbnb
+
+env:
+  browser: true
+  mocha: true
+
+rules:
+  import/no-named-as-default: off
+
+globals:
+  expect: true
+  sinon: true
+
+settings:
+  react:
+    version: '15.3'
