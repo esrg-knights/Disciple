@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "test": "concurrently 'npm run eslint' 'npm run karma'",
-    "serve": "webpack-dev-server --inline --hot --no-info --progress --color",
+    "serve": "webpack-dev-server --inline --hot --no-info --progress --color --port 7000",
     "eslint": "eslint --max-warnings 0 --ext .js,.jsx app/. ",
     "esfix": "eslint --ext .js,.jsx --fix app/. ",
     "karma": "karma start --single-run",
@@ -23,7 +23,9 @@
     "redux": "^3.6.0",
     "redux-form": "^6.3.2",
     "redux-form-material-ui": "^4.1.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "superagent": "^3.3.1",
+    "superagent-es6-promise": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.20.0",
