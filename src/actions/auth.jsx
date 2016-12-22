@@ -2,11 +2,10 @@ import request from 'superagent-es6-promise';
 export const LOGIN_SUCCESFULL = 'LOGIN_SUCCESFULL';
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGOUT = 'LOGOUT';
 
 export function login(credentials){
-  console.log(credentials);
-
-  return (dispatch) => {
+   return (dispatch) => {
     dispatch({type: LOGIN_PENDING, username: credentials.username});
 
     return request
@@ -25,5 +24,13 @@ export function login(credentials){
           error
         })
       })
+  }
+}
+
+export function logout(){
+  return (dispatch) => {
+    dispatch({
+      type: LOGOUT
+    });
   }
 }

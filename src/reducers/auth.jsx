@@ -1,4 +1,4 @@
-import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED} from '../actions/auth';
+import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED, LOGOUT} from '../actions/auth';
 
 export default function authLogin(state = {
   isFetching: false,
@@ -20,6 +20,13 @@ export default function authLogin(state = {
         jwt: action.data.token
       });
     case LOGIN_FAILED:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isLoggedIn: false,
+        username: '',
+        jwt: ''
+      });
+    case LOGOUT:
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: false,
