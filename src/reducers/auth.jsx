@@ -1,19 +1,20 @@
-import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED, LOGOUT} from '../actions/auth';
+import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED, LOGOUT} from "../actions/auth";
 
 export default function authLogin(state = {
   isFetching: false,
   isLoggedIn: false,
   username: "",
   jwt: ""
-}, action){
+}, action) {
   console.log(action);
-  switch(action.type){
+  switch (action.type) {
     case LOGIN_PENDING:
       return Object.assign({}, state, {
         isFetching: true,
         username: action.username
       });
     case LOGIN_SUCCESFULL:
+      localStorage.setItem('token', action.data.token);
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: true,
