@@ -26,7 +26,6 @@ export class Dinner extends React.Component {
 
 Dinner.propTypes = {
   isFetching: PropTypes.bool,
-  dinnerlist: PropTypes.object,
   participations: PropTypes.arrayOf(
     PropTypes.object
   ),
