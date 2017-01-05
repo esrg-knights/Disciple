@@ -9,3 +9,4 @@ export const ProfileMenu = props => (
     <MenuItem primaryText="Logout" onTouchTap={dispatch(logout)}/>
   </Menu>
 );
+
