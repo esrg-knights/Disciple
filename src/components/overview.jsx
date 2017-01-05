@@ -3,7 +3,7 @@ import {AppBar, FlatButton} from "material-ui";
 import * as PropTypes from "react/lib/ReactPropTypes";
 import {connect} from "react-redux";
 import Login from "./login";
-import {logout} from "../actions/auth";
+import {logout, refresh} from "../actions/auth";
 
 export class Overview extends React.Component {
   constructor(props) {
@@ -11,6 +11,9 @@ export class Overview extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
+  componentDidMount(){
+    setInterval(this.props.refresh(), 200000)
+  }
   logout() {
     this.props.logout();
   }
@@ -40,7 +43,8 @@ export class Overview extends React.Component {
 Overview.propTypes = {
   isLoggedIn: PropTypes.bool,
   username: PropTypes.string,
-  logout: PropTypes.func
+  logout: PropTypes.func,
+  refresh: PropTypes.func
 };
 
 export function mapStateToProps(state) {
@@ -48,5 +52,6 @@ export function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  logout
+  logout,
+  refresh
 })(Overview);

@@ -1,10 +1,11 @@
-import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED, LOGOUT} from "../actions/auth";
+import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED, LOGIN_REFRESHED, LOGOUT} from '../actions/auth';
 
 export default function authLogin(state = {
   isFetching: false,
   isLoggedIn: false,
   username: "",
-  jwt: ""
+  jwt: "",
+  lastChange: 0
 }, action) {
   console.log(action);
   switch (action.type) {
@@ -18,7 +19,8 @@ export default function authLogin(state = {
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: true,
-        jwt: action.data.token
+        jwt: action.data.token,
+        lastChange: new Date().getTime()
       });
     case LOGIN_FAILED:
       return Object.assign({}, state, {
@@ -26,6 +28,11 @@ export default function authLogin(state = {
         isLoggedIn: false,
         username: '',
         jwt: ''
+      });
+    case LOGIN_REFRESHED:
+      return Object.assign({}, state, {
+        jwt: action.data.token,
+        lastChange: new Date().getTime()
       });
     case LOGOUT:
       return Object.assign({}, state, {

@@ -2,6 +2,7 @@ import request from 'superagent-es6-promise';
 export const LOGIN_SUCCESFULL = 'LOGIN_SUCCESFULL';
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_REFRESHED = 'LOGIN_REFRESHED';
 export const LOGOUT = 'LOGOUT';
 
 export function login(credentials){
@@ -26,6 +27,27 @@ export function login(credentials){
       })
   }
 }
+
+export const refresh = () => {
+  if (localStorage.getItem(`token`) == null) {
+    return logout()
+  } else {
+    return (dispatch) => {
+      return request
+        .post(API_URL + `/api/auth/refresh/`)
+        .send({token: localStorage.getItem('token')})
+        .then(result => {
+          dispatch({
+            type: LOGIN_REFRESHED,
+            data: result.body
+          })
+        })
+        .catch(() => {
+          dispatch(logout());
+        })
+    }
+  }
+};
 
 export function logout(){
   return (dispatch) => {
