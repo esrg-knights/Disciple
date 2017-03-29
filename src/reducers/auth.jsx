@@ -3,6 +3,7 @@ import {LOGIN_PENDING, LOGIN_SUCCESFULL, LOGIN_FAILED, LOGIN_REFRESHED, LOGOUT} 
 export default function authLogin(state = {
   isFetching: false,
   isLoggedIn: false,
+  isFailed: false,
   username: "",
   jwt: "",
   lastChange: 0
@@ -18,6 +19,7 @@ export default function authLogin(state = {
       localStorage.setItem('token', action.data.token);
       return Object.assign({}, state, {
         isFetching: false,
+        isFailed: false,
         isLoggedIn: true,
         jwt: action.data.token,
         lastChange: new Date().getTime()
@@ -26,6 +28,7 @@ export default function authLogin(state = {
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: false,
+        isFailed: true,
         username: '',
         jwt: ''
       });
@@ -38,6 +41,7 @@ export default function authLogin(state = {
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: false,
+        isFailed: false,
         username: '',
         jwt: ''
       });

@@ -1,7 +1,7 @@
 import React from "react";
 import {Route, IndexRoute} from 'react-router';
 import Overview from './components/overview';
-import Dinner from './components/dinner';
+import Dinner from './components/dinner/dinner';
 
 export default(
   <Route path='/' component={Overview}>

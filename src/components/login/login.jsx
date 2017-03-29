@@ -1,7 +1,8 @@
 import React from "react";
-import {login} from "../actions/auth";
+import {login} from "../../actions/auth";
 import LoginForm from "./loginForm";
 import * as PropTypes from "react/lib/ReactPropTypes";
+import {Snackbar} from 'material-ui';
 import {connect} from "react-redux";
 
 export class Login extends React.Component {
@@ -16,16 +17,24 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <LoginForm onSubmit={this.submit}/>
+      <div>
+        <LoginForm onSubmit={this.submit}/>
+        <Snackbar
+          open={this.props.isFailed}
+          message="Failed to log in"
+          autoHideDuration={5000}
+        />
+      </div>
     )
   }
 }
 
 Login.propTypes = {
+  isFailed: PropTypes.bool,
   login: PropTypes.func
 };
 
-export function mapStateToProps(state){
+export function mapStateToProps(state) {
   return state.auth;
 }
 

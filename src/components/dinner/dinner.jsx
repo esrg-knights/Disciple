@@ -1,7 +1,7 @@
 import React from "react";
 import * as PropTypes from "react/lib/ReactPropTypes";
 import {CircularProgress} from "material-ui";
-import {query} from "../actions/dinner";
+import {query} from "../../actions/dinner";
 import {connect} from "react-redux";
 import {DinnerParticipation} from "./dinnerParticipation";
 
