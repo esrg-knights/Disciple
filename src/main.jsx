@@ -9,6 +9,7 @@ import "./main.css";
 import {createStore, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
 import persistState from 'redux-localstorage';
+import logger from 'redux-logger';
 import reducers from "./reducers/index";
 
 document.write("<div id='root'></div>");
@@ -17,7 +18,7 @@ const enhancer = compose(
   persistState()
 );
 
-const store = createStore(reducers, enhancer, applyMiddleware(thunk));
+const store = createStore(reducers, enhancer, applyMiddleware(thunk, logger));
 
 injectTapEventPlugin();
 ReactDOM.render(

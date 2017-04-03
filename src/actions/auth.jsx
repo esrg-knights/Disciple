@@ -32,7 +32,7 @@ export const refresh = () => {
   if (localStorage.getItem(`token`) == null) {
     return logout()
   } else {
-
+    return logout()
   }
 };
 
