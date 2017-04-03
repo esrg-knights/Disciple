@@ -14,8 +14,7 @@ export class Overview extends React.Component {
       menu: false
     };
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.toDinner = this.toDinner.bind(this);
-    this.toProfile = this.toProfile.bind(this);
+    this.navigate = this.navigate.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -29,6 +28,13 @@ export class Overview extends React.Component {
         menu: !this.state.menu
       })
     }
+  }
+
+  navigate(url) {
+    hashHistory.push(url);
+    this.setState({
+      menu: false
+    })
   }
 
   toDinner(){
@@ -63,8 +69,9 @@ export class Overview extends React.Component {
           open={this.state.menu}>
           <Menu width={300}>
             <MenuItem primaryText="Close" onTouchTap={this.toggleMenu} />
-            <MenuItem primaryText="Dinner" onTouchTap={this.toDinner}/>
-            <MenuItem primaryText="Profile" onTouchTap={this.toProfile}/>
+            <MenuItem primaryText="Dinner" onTouchTap={() => this.navigate('/dinner')}/>
+            <MenuItem primaryText="Profile" onTouchTap={() => this.navigate('/profile')}/>
+            <MenuItem primaryText="Achievements" onTouchTap={() => this.navigate('/achievements')} />
             <Divider />
             <MenuItem primaryText={this.props.username} />
             <MenuItem primaryText="Log out" onTouchTap={this.logout} />
@@ -73,7 +80,6 @@ export class Overview extends React.Component {
         {this.props.isLoggedIn == false ?
           <Login /> :
           <div>
-            <h1>This is your profile</h1>
             {this.props.children}
           </div>
         }

@@ -32,7 +32,20 @@ export const refresh = () => {
   if (localStorage.getItem(`token`) == null) {
     return logout()
   } else {
-    return logout()
+    return (dispatch) => {
+      return request
+        .post(API_URL + `/api/auth/refresh/`)
+        .send({token: localStorage.getItem('token')})
+        .then(result => {
+          dispatch({
+            type: LOGIN_REFRESHED,
+            data: result.body
+          })
+        })
+        .catch(() => {
+          dispatch(logout());
+        })
+    }
   }
 };
 
