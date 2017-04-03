@@ -1,9 +1,9 @@
 import React from "react";
 import * as PropTypes from "react/lib/ReactPropTypes";
-import {CircularProgress} from "material-ui";
+import {CircularProgress, GridList, GridTile} from "material-ui";
 import {query} from "../../actions/dinner";
 import {connect} from "react-redux";
-import {DinnerParticipation} from "./dinnerParticipation";
+import DinnerParticipation from "./dinnerParticipation";
 
 export class Dinner extends React.Component {
   componentDidMount() {
@@ -15,9 +15,16 @@ export class Dinner extends React.Component {
       <div>
         {this.props.isFetching ?
           <CircularProgress /> :
-          this.props.participations.map((participation, index) =>
-            <DinnerParticipation key={index} participation={participation}/>
-          )
+          <GridList
+            cols={6}>
+            {this.props.participations.map((participation, index) =>
+              <GridTile key={index}>
+                <DinnerParticipation key={index} participation={participation}/>
+              </GridTile>
+            )
+            }
+          </GridList>
+
         }
       </div>
     )
