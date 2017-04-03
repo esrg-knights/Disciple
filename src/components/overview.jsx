@@ -3,8 +3,9 @@ import {AppBar, FlatButton, Menu, MenuItem, Popover, Divider} from 'material-ui'
 import * as PropTypes from 'react/lib/ReactPropTypes';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
-import Login from './login';
+import Login from './login/login';
 import {logout, refresh} from '../actions/auth';
+import SnackbarWrapper from './snackbar';
 
 export class Overview extends React.Component {
   constructor(props) {
@@ -49,6 +50,7 @@ export class Overview extends React.Component {
   render() {
     return (
       <div>
+        <SnackbarWrapper />
         <AppBar
           title="Knights of the kitchen table"
           iconElementRight={
