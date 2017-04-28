@@ -75,33 +75,45 @@ export function setGroceries (id, user, status) {
 }
 
 export function joinList (list) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     let uid = localStorage.getItem('uid')
-    dispatch({type: 'LIST_JOINING', data: {list, user: uid}})
+    if (getState().dinner.participations.find(participation => participation.user === Number(uid)) === undefined) {
+      dispatch({type: 'LIST_JOINING', data: {list, user: uid}})
 
-    return request.post(`${API_URL}/api/models/dining_participation/`)
-      .set('Authorization', `JWT ${localStorage.getItem('token')}`)
-      .send({
-        dining_list: list,
-        user: uid
-      })
-      .then(result => dispatch({type: 'LIST_JOINED', data: result.body}))
-      .catch(error => sendMessage('Failed to join the list'))
+      return request.post(`${API_URL}/api/models/dining_participation/`)
+        .set('Authorization', `JWT ${localStorage.getItem('token')}`)
+        .send({
+          dining_list: list,
+          user: uid
+        })
+        .then(result => dispatch({type: 'LIST_JOINED', data: result.body}))
+        .catch(error => sendMessage('Failed to join the list'))
+    } else {
+      dispatch({type: 'LIST_ALREADY_JOINED'})
+      dispatch(sendMessage('You\'re already on this list!'))
+      Promise.resolve()
+    }
   }
 }
 
 export function claimList (list) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     let uid = localStorage.getItem('uid')
-    dispatch({type: 'LIST_CLAIMING', data: {id: list, owner: uid}})
 
-    return request.patch(`${API_URL}/api/models/dining/${list}/`)
-      .set('Authorization', `JWT ${localStorage.getItem('token')}`)
-      .send({
-        id: list,
-        owner: uid
-      })
-      .then(result => dispatch({type: 'LIST_JOINED', data: result.body}))
-      .catch(error => sendMessage('Failed to join the list'))
+    if (getState().dinner.latestList.owner === null) {
+      dispatch({type: 'LIST_CLAIMING', data: {id: list, owner: uid}})
+
+      return request.patch(`${API_URL}/api/models/dining/${list}/`)
+        .set('Authorization', `JWT ${localStorage.getItem('token')}`)
+        .send({
+          id: list,
+          owner: uid
+        })
+        .then(result => dispatch({type: 'LIST_JOINED', data: result.body}))
+        .catch(error => sendMessage('Failed to join the list'))
+    } else {
+      dispatch(sendMessage('This list has already been claimed!'))
+      Promise.resolve()
+    }
   }
 }
