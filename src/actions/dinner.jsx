@@ -6,6 +6,7 @@ export const DINNER_LOADED = 'DINNER_LOADED'
 export const PARTICIPATION_TOGGLED = 'PARTICIPATION_TOGGLED'
 export const PARTICIPATIONS_LOADED = 'PARTICIPATIONS_LOADED'
 export const PARTICPATION_SWITCHED = 'PARTICPATION_SWITCHED'
+export const LIST_JOINED = 'LIST_JOINED'
 
 export function getDiningLists () {
   return (dispatch) => {
@@ -71,4 +72,36 @@ export function setGroceries (id, user, status) {
     user,
     work_groceries: status
   }))
+}
+
+export function joinList (list) {
+  return (dispatch) => {
+    let uid = localStorage.getItem('uid')
+    dispatch({type: 'LIST_JOINING', data: {list, user: uid}})
+
+    return request.post(`${API_URL}/api/models/dining_participation/`)
+      .set('Authorization', `JWT ${localStorage.getItem('token')}`)
+      .send({
+        dining_list: list,
+        user: uid
+      })
+      .then(result => dispatch({type: 'LIST_JOINED', data: result.body}))
+      .catch(error => sendMessage('Failed to join the list'))
+  }
+}
+
+export function claimList (list) {
+  return (dispatch) => {
+    let uid = localStorage.getItem('uid')
+    dispatch({type: 'LIST_CLAIMING', data: {id: list, owner: uid}})
+
+    return request.patch(`${API_URL}/api/models/dining/${list}/`)
+      .set('Authorization', `JWT ${localStorage.getItem('token')}`)
+      .send({
+        id: list,
+        owner: uid
+      })
+      .then(result => dispatch({type: 'LIST_JOINED', data: result.body}))
+      .catch(error => sendMessage('Failed to join the list'))
+  }
 }

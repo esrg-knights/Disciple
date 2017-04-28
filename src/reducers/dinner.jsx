@@ -1,4 +1,10 @@
-import { DINNER_LOADED, DINNER_LOADING, PARTICIPATIONS_LOADED, PARTICPATION_SWITCHED } from '../actions/dinner'
+import {
+  DINNER_LOADED,
+  DINNER_LOADING,
+  LIST_JOINED,
+  PARTICIPATIONS_LOADED,
+  PARTICPATION_SWITCHED
+} from '../actions/dinner'
 
 export default function dinner (state = {
   isFetching: false,
@@ -24,6 +30,10 @@ export default function dinner (state = {
     case PARTICPATION_SWITCHED:
       return Object.assign({}, state, {
         participations: state.participations.map(participation => participation.id === action.data.id ? action.data : participation)
+      })
+    case LIST_JOINED:
+      return Object.assign({}, state, {
+        participations: [].concat(state.participations).concat([action.data])
       })
     default:
       return state
