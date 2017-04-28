@@ -15,7 +15,7 @@ import reducers from "./reducers/index";
 document.write("<div id='root'></div>");
 
 const enhancer = compose(
-  persistState()
+  persistState(['auth',])
 );
 
 const store = createStore(reducers, enhancer, applyMiddleware(thunk, logger));

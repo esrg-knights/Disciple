@@ -1,83 +1,72 @@
-import React from "react";
-import {Card, CardHeader, CardText, Toggle} from "material-ui";
-import {connect} from "react-redux";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Card, CardHeader, CardText, Toggle } from 'material-ui'
 
-import {updateParticipation} from '../../actions/dinner';
+import { setCook, setDishes, setGroceries, setPaid } from '../../actions/dinner'
+
+import Username from '../extra/username'
+import { connect } from 'react-redux'
+
 export class DinnerParticipation extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    this.toggleCook = this.toggleCook.bind(this);
-    this.toggle = this.toggle.bind(this);
+    this.setPaid = (data, checked) => this.props.setPaid(this.props.participation.id, this.props.participation.user, checked)
+    this.toggleCook = (data, checked) => this.props.setCook(this.props.participation.id, this.props.participation.user, checked)
+    this.toggleDishes = (data, checked) => this.props.setDishes(this.props.participation.id, this.props.participation.user, checked)
+    this.toggleGroceries = (data, checked) => this.props.setGroceries(this.props.participation.id, this.props.participation.user, checked)
   }
 
-  toggleCook() {
-    this.props.updateParticipation(this.props.participation.id, !this.props.participation.work_cook)
-  }
-
-  toggle(action) {
-    let cook = this.props.participation.work_cook;
-    let dishes = this.props.participation.work_dishes;
-    let groceries = this.props.participation.work_groceries;
-    let paid = this.props.participation.paid;
-
-    switch (action) {
-      case "cook":
-        cook = !cook;
-        break;
-      case "dishes":
-        dishes = !dishes;
-        break;
-      case "groceries":
-        groceries = !groceries;
-        break;
-      case "paid":
-        paid = !paid;
-        break;
-    }
-
-    this.props.updateParticipation(this.props.participation.id, groceries, cook, dishes, paid)
-  }
-
-  render() {
+  render () {
     return (
       <Card>
         <CardHeader
-          title={this.props.participation.user.username}
+          title={<Username userId={this.props.participation.user}/>}
         />
         <CardText>
           <Toggle
             label="Groceries"
+            onToggle={this.toggleGroceries}
             toggled={this.props.participation.work_groceries}
-            onToggle={() => this.toggle('groceries')}
           />
           <Toggle
             label="Cook"
+            onToggle={this.toggleCook}
             toggled={this.props.participation.work_cook}
-            onToggle={() => this.toggle('cook')}
           />
           <Toggle
             label="Dishes"
+            onToggle={this.toggleDishes}
             toggled={this.props.participation.work_dishes}
-            onToggle={() => this.toggle('dishes')}
           />
           <Toggle
             label="Paid"
+            onToggle={this.setPaid}
             toggled={this.props.participation.paid}
-            onToggle={() => this.toggle('paid')}
           />
         </CardText>
       </Card>
     )
   }
 }
-DinnerParticipation.propTypes = {
-  updateParticipation: React.PropTypes.func
-};
 
-export function mapStateToProps(state) {
-  return state.dinner;
+DinnerParticipation.propTypes = {
+  participation: React.PropTypes.object.isRequired,
+  setPaid: React.PropTypes.func,
+  setCook: PropTypes.func,
+  setGroceries: PropTypes.func,
+  setDishes: PropTypes.func
 }
+
+function mapStateToProps (state, ownState) {
+  return {
+    participation: ownState.participation
+  }
+}
+
 export default connect(mapStateToProps, {
-  updateParticipation
+  setPaid,
+  setDishes,
+  setGroceries,
+  setCook,
 })(DinnerParticipation)
