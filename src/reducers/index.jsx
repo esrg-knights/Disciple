@@ -4,6 +4,7 @@ import auth from './auth'
 import dinner from './dinner'
 import snackbar from './snackbar'
 import user from './user'
+import achievement from './achievement'
 import { LOGOUT } from '../actions/auth'
 
 export const appReducer = combineReducers({
@@ -11,6 +12,7 @@ export const appReducer = combineReducers({
   dinner,
   snackbar,
   user,
+  achievement,
   form
 })
 

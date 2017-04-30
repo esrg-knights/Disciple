@@ -14,6 +14,7 @@
   "author": "David Diks <d.diks94@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "file-loader": "^0.11.1",
     "material-ui": "^0.16.5",
     "prop-types": "^15.5.8",
     "react": "^15.4.1",
@@ -50,6 +51,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "html-webpack-plugin": "^2.24.1",
+    "image-webpack-loader": "^3.3.0",
     "json-loader": "^0.5.4",
     "karma": "^1.3.0",
     "karma-chrome-launcher": "^2.0.0",

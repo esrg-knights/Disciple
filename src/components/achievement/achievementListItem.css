@@ -1,0 +1,18 @@
+.achievement-list-item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.achievement-image-container {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: auto;
+}
+
+.achievement-description-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
